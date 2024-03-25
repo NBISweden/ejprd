@@ -4,13 +4,8 @@ To be updated and specialized for the ejprd use case.
 # Set up starter-kit-storage-and-interfaces in demo mode
 
 1. Download the repo https://github.com/GenomicDataInfrastructure/starter-kit-storage-and-interfaces/
-1. Go into the repo's root folder `cd starter-kit-storage-and-interfaces`
-1. Run the following commands, to sure that all configuration files are in place.
-    ```shell
-    cp ./config/config.yaml.example ./config/config.yaml
-    cp ./config/iss.json.example ./config/iss.json
-    cp ./.env.example ./.env
-    ```
+1. Go into the repo's root folder `cd starter-kit-storage-and-interfaces`.
+1. Check out branch `feat/htsget-crypt4gh`.
 
 1. To start the stack:
 ```shell
@@ -22,7 +17,9 @@ Test data is loaded, loaded from here  https://github.com/ga4gh/htsget-refserver
 
 After deployment is done, follow the instructions below to test that the demo worked as expected.
 In order to restart the services, first take everything down and remove the volumes using
+```
 docker compose -f docker-compose-demo.yml down -v --remove-orphans
+```
 ### **Download unencrypted files directly**
 
 #### Get token for downloading data
@@ -57,4 +54,4 @@ fileID=$(curl -s -H "Authorization: Bearer $token" "http://localhost:8443/metada
 filename=$(curl -s -H "Authorization: Bearer $token" "http://localhost:8443/metadata/datasets/$datasetID/files" | jq -r '.[0].displayFileName' | cut -d '.' -f 1,2 )
 curl -s -H "Authorization: Bearer $token" http://localhost:8443/files/$fileID -o "$filename"
 ```
-
+Check that the file `$filenam` (`htsnexus_test_NA12878.bam`) has been created, and that it contains (binary) data.
