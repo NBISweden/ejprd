@@ -21,7 +21,8 @@ The services will run in demo mode, with a mock-oidc in place of LS-AAI.
 Test data is loaded, loaded from here  https://github.com/ga4gh/htsget-refserver/tree/main/data/gcp/gatk-test-data/wgs_bam.
 
 After deployment is done, follow the instructions below to test that the demo worked as expected.
-
+In order to restart the services, first take everything down and remove the volumes using
+docker compose -f docker-compose-demo.yml down -v --remove-orphans
 ### **Download unencrypted files directly**
 
 #### Get token for downloading data
