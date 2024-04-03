@@ -5,9 +5,10 @@ This repo will contain
 - Instructions on how to set up GDI components
   - htsget
   - lsaai-mock
+  - rems
   - storage-and-interfaces
   - beacon-v2
-  - containerized-computation
+  - containerized-computations
 - and the (EJP-RD) components
   - FDP (metadata, DCAT-AP)
   - SPARQL endpoint/ rdf store (data in CARE-SM model)
