@@ -4,7 +4,11 @@
 > - starter-kit htsget repo updated?
 
 
-1. Copy `config/docker-compose-demo.yaml` of this repo to the root folder of `storage-and-interfaces` . Take down the containers  of that repo `docker compose -f docker-compose-demo.yml down -v --remove-orphans` if they were already running. (This step is to be removed when all branches, images etc are synced.)
+1. Copy `config/docker-compose-demo.yml` of this repo to the root folder of
+   `storage-and-interfaces` . Take down the containers  of that repo `docker
+   compose -f docker-compose-demo.yml down -v --remove-orphans` if they were
+   already running. (This step is to be removed when all branches, images etc
+   are synced.)
 1. Make sure you have the services in [storage-and-interfaces running](/docs/storage-and-interfaces.md).
 
 1. Clone the repo https://github.com/GenomicDataInfrastructure/starter-kit-htsget.

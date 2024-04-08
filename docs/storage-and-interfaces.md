@@ -6,6 +6,7 @@ To be updated and specialized for the ejprd use case.
 1. Download the repo https://github.com/GenomicDataInfrastructure/starter-kit-storage-and-interfaces/
 1. Go into the repo's root folder `cd starter-kit-storage-and-interfaces`.
 1. Check out branch `feat/htsget-crypt4gh`.
+1. Copy the [`docker-compose-demo.yml` from the `config` folder of this repo](config/docker-compose-demo.yml) to the root folder of `storage-and-interfaces`.
 
 1. To start the stack:
 ```shell
