@@ -5,7 +5,7 @@ services:
     entrypoint: /bin/bash /tmp/config/set-up-db.sh
     volumes:
       - graphdb:/opt/graphdb/home
-      - graphdb-config:/tmp/config:ro
+      - graphdb-config:/tmp/config/:ro
 
   graphdb:
     image: ontotext/graphdb:10.6.1
@@ -113,6 +113,9 @@ services:
       - FILTER_AGE_SYMPTOM_ONSET=True
       - FILTER_AGE_DIAGNOSIS=True
       - URL_SERVER=http://beacon/beaconAPI/  # DO NOT include the path e.g. /individuals
+    depends_on:
+      graphdb:
+        condition: service_healthy
 
 volumes: 
   graphdb:
@@ -121,7 +124,7 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: ./graphdb
+      device: ./graphdb/
   mongo-data: 
   mongo-configdb:
 
