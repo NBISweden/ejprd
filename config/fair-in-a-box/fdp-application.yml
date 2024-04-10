@@ -1,0 +1,13 @@
+server:
+  port: 80
+
+spring:
+  application:
+    name: fair-data-point
+  main:
+    banner-mode: off
+  data:
+    mongodb:
+      uri: mongodb://${FDP_MONGO_USER}:${FDP_MONGO_PASS}@${FDP_MONGO_HOST}:${FDP_MONGO_PORT}/${FDP_MONGO_DB}?authSource=admin
+      # uri: mongodb://${FDP_MONGO_HOST}:${FDP_MONGO_PORT}/${FDP_MONGO_DB}
+
