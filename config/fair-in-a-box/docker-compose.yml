@@ -12,7 +12,7 @@ services:
     restart: always
     healthcheck:
       test: wget -O /dev/null -q http://localhost:7200/protocol || exit 1
-      interval: 1m
+      interval: ${FIAB_healthcheck_interval:-1m}
       # start_interval: 10s
       timeout: 5s
       retries: 5
@@ -38,7 +38,7 @@ services:
       - --spring.config.location=classpath:/application.yml,file:/fdp/application-production.yml
     healthcheck:
       test: curl --fail --silent localhost:80/actuator/health | grep UP || exit 1
-      interval: 1m
+      interval: ${FIAB_healthcheck_interval:-1m}
       # start_interval: 10s
       timeout: 5s
       retries: 5
@@ -88,7 +88,7 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=password
     healthcheck:
       test: mongo --eval 'db.runCommand("ping").ok' localhost:27017/test --quiet || exit 1
-      interval: 1m
+      interval: ${FIAB_healthcheck_interval:-1m}
       # start_interval: 10s
       timeout: 5s
       retries: 5
