@@ -44,7 +44,7 @@ Now you should be able  make the requests to the htsget server. To request the (
         }
       },
       {
-        "url": "data:;base64,ZAAAAAAAAAANnX2vcqkqRxd9utGSQ4sdOiGGrQpoEnsNgVvwL9xbcWdczwowNQ/Q/WO1PPwo0KL506L9w0ReGV6o+jgrsAqug1O//DVLlZngwC/waitP71nIVPcILwef2QZjIQ=="
+        "url": "data:;base64,ZAAAAAAAAACxHxjMhagEVY+4bVEZYuqYGK5Ph3jrffrMhXpc3wYWenp2ofohEUwSBOuZF3kH6TEiQsjSPGaE1bvdMQ2uUuuHLWicplUneE77G079sTW8rJIJJ1VgZecPi9cTfQ=="
       },
       {
         "url": "http://localhost:8443/s3-encrypted/DATASET0001/htsnexus_test_NA12878.bam.c4gh",
@@ -56,10 +56,9 @@ Now you should be able  make the requests to the htsget server. To request the (
       {
         "url": "http://localhost:8443/s3-encrypted/DATASET0001/htsnexus_test_NA12878.bam.c4gh",
         "headers": {
-          "Range": "bytes=2557120-2597918",
+          "Range": "bytes=2557120-2598042",
           "accept": "*/*",
           ...
-        }
       }
     ]
   }
@@ -71,7 +70,7 @@ This should point you to doing requests to `http://localhost:8443/s3-encrypted` 
 ```sh
 curl 'http://localhost:8443/s3-encrypted/DATASET0001/htsnexus_test_NA12878.bam' -H "Authorization: Bearer $token"  -H "Server-Public-Key: $pubkey" -H "Range: bytes=16-123" -o p11-00.bam.c4gh
 curl 'http://localhost:8443/s3-encrypted/DATASET0001/htsnexus_test_NA12878.bam' -H "Authorization: Bearer $token"  -H "Server-Public-Key: $pubkey" -H "Range: bytes=124-1049147" -o p11-01.bam.c4gh
-curl 'http://localhost:8443/s3-encrypted/DATASET0001/htsnexus_test_NA12878.bam' -H "Authorization: Bearer $token"  -H "Server-Public-Key: $pubkey" -H "Range: bytes=2557120-2597918" -o p11-02.bam.c4gh
+curl 'http://localhost:8443/s3-encrypted/DATASET0001/htsnexus_test_NA12878.bam' -H "Authorization: Bearer $token"  -H "Server-Public-Key: $pubkey" -H "Range: bytes=2557120-2598042" -o p11-02.bam.c4gh
 ```
 
 The response from hstget also lists two data sections:
@@ -80,9 +79,9 @@ The response from hstget also lists two data sections:
 ```
 and
 ```sh
-"url": "data:;base64,ZAAAAAAAAAANnX2vcqkqRxd9utGSQ4sdOiGGrQpoEnsNgVvwL9xbcWdczwowNQ/Q/WO1PPwo0KL506L9w0ReGV6o+jgrsAqug1O//DVLlZngwC/waitP71nIVPcILwef2QZjIQ=="
+"url": "data:;base64,ZAAAAAAAAACxHxjMhagEVY+4bVEZYuqYGK5Ph3jrffrMhXpc3wYWenp2ofohEUwSBOuZF3kH6TEiQsjSPGaE1bvdMQ2uUuuHLWicplUneE77G079sTW8rJIJJ1VgZecPi9cTfQ==
 ```
-These segments are part of the requested data. Save them to files, `start.b64` and `mid.64`, respectively. Then concatenate all segments:
+These segments are part of the requested data. Save the data (eg. `Y3J5cHQ0Z2gBAAAAAgAAAA==`) to files, `start.b64` and `mid.64`, respectively. Then concatenate all segments:
 ```sh
 { <start.b64 base64 --decode  && cat p11-00.bam.c4gh && <mid.b64 base64 --decode && cat p11-01.bam.c4gh && cat p11-02.bam.c4gh ;} > htsnexus_11.bam.c4gh 
 ```
