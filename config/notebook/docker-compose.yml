@@ -1,0 +1,33 @@
+services:
+
+  notebook:
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM quay.io/jupyter/base-notebook
+        USER root
+        ARG DEBIAN_FRONTEND=noninteractive
+        RUN apt-get update && apt-get -qq install curl jq
+        USER jovyan
+        # RUN pip install bash_kernel
+        # RUN python -m bash_kernel.install
+        # RUN conda config --add channels bioconda && conda config --add channels conda-forge && mamba install --yes samtools && mamba clean --all -f -y
+    image: ejp-rd-notebook:latest
+    userns_mode: keep-id:uid=1000,gid=100
+    working_dir: /home/jovyan/work/
+    environment:
+      - NOTEBOOK_ARGS=--NotebookApp.token='${JUPYTER_PASS:-password}'
+    container_name: notebook
+    volumes:
+      - ejp-rd-notebook:/home/jovyan/work/:rw
+    configs:
+      - source: shortcuts.jupyterlab-settings
+        target: /opt/conda/share/jupyter/lab/settings/overrides.json
+
+volumes:
+  ejp-rd-notebook:
+
+
+configs:
+  shortcuts.jupyterlab-settings:
+    file: ./shortcuts.jupyterlab-settings.overrides.json
