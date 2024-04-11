@@ -87,7 +87,7 @@ These segments are part of the requested data. Save the data (eg. `Y3J5cHQ0Z2gBA
 ```
 Make sure that the file can be decrypted with your private key:
 ```sh
-crypt4gh decrypt --sk keys/c4gh.sec.pem < htsnexus_11.bam.c4gh > htsnexus_11.bam
+crypt4gh decrypt -s keys/c4gh.sec.pem -f htsnexus_11.bam.c4gh
 ```
 
 Finally, check that samtools can open the new file:
