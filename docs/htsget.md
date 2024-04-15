@@ -68,9 +68,9 @@ Now you should be able  make the requests to the htsget server. To request the (
 This repsonse contains byte ranges (eg. `"Range": "bytes=124-1049147"`) as parts of url requests.
 This should point you to doing requests to `http://localhost:8443/s3-encrypted` (`sda-download`, from `storage-and-interfaces`) that gets you data for chromosome 11 of the file:
 ```sh
-curl 'http://localhost:8443/s3-encrypted/DATASET0001/htsnexus_test_NA12878.bam' -H "Authorization: Bearer $token"  -H "Server-Public-Key: $pubkey" -H "Range: bytes=16-123" -o p11-00.bam.c4gh
-curl 'http://localhost:8443/s3-encrypted/DATASET0001/htsnexus_test_NA12878.bam' -H "Authorization: Bearer $token"  -H "Server-Public-Key: $pubkey" -H "Range: bytes=124-1049147" -o p11-01.bam.c4gh
-curl 'http://localhost:8443/s3-encrypted/DATASET0001/htsnexus_test_NA12878.bam' -H "Authorization: Bearer $token"  -H "Server-Public-Key: $pubkey" -H "Range: bytes=2557120-2598042" -o p11-02.bam.c4gh
+curl 'http://localhost:8443/s3-encrypted/DATASET0001/htsnexus_test_NA12878.bam' -H "Authorization: Bearer $token"  -H "Client-Public-Key: $pubkey" -H "Range: bytes=16-123" -o p11-00.bam.c4gh
+curl 'http://localhost:8443/s3-encrypted/DATASET0001/htsnexus_test_NA12878.bam' -H "Authorization: Bearer $token"  -H "Client-Public-Key: $pubkey" -H "Range: bytes=124-1049147" -o p11-01.bam.c4gh
+curl 'http://localhost:8443/s3-encrypted/DATASET0001/htsnexus_test_NA12878.bam' -H "Authorization: Bearer $token"  -H "Client-Public-Key: $pubkey" -H "Range: bytes=2557120-2598042" -o p11-02.bam.c4gh
 ```
 
 The response from hstget also lists two data sections:
