@@ -94,3 +94,7 @@ Finally, check that samtools can open the new file:
 ```sh
 samtools view htsnexus11.bam
 ```
+or, if you don't have samtools installed
+```sh
+docker run -it --rm -v $(pwd):/tmp staphb/samtools /bin/bash
+```
