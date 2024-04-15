@@ -81,7 +81,7 @@ and
 ```sh
 "url": "data:;base64,ZAAAAAAAAACxHxjMhagEVY+4bVEZYuqYGK5Ph3jrffrMhXpc3wYWenp2ofohEUwSBOuZF3kH6TEiQsjSPGaE1bvdMQ2uUuuHLWicplUneE77G079sTW8rJIJJ1VgZecPi9cTfQ==
 ```
-These segments are part of the requested data. Save the data (eg. `Y3J5cHQ0Z2gBAAAAAgAAAA==`) to files, `start.b64` and `mid.64`, respectively. Then concatenate all segments:
+These segments are part of the requested data. Save the data (eg. `Y3J5cHQ0Z2gBAAAAAgAAAA==`) to files, `start.b64` and `mid.b64`, respectively. Then concatenate all segments:
 ```sh
 { <start.b64 base64 --decode  && cat p11-00.bam.c4gh && <mid.b64 base64 --decode && cat p11-01.bam.c4gh && cat p11-02.bam.c4gh ;} > htsnexus_11.bam.c4gh 
 ```

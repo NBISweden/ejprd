@@ -54,4 +54,4 @@ fileID=$(curl -s -H "Authorization: Bearer $token" "http://localhost:8443/metada
 filename=$(curl -s -H "Authorization: Bearer $token" "http://localhost:8443/metadata/datasets/$datasetID/files" | jq -r '.[0].displayFileName' | cut -d '.' -f 1,2 )
 curl -s -H "Authorization: Bearer $token" http://localhost:8443/files/$fileID -o "$filename"
 ```
-Check that the file `$filenam` (`htsnexus_test_NA12878.bam`) has been created, and that it contains (binary) data.
+Check that the file `$filename` (`htsnexus_test_NA12878.bam`) has been created, and that it contains (binary) data.
