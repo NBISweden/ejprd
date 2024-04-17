@@ -92,7 +92,7 @@ crypt4gh decrypt -s keys/c4gh.sec.pem -f htsnexus_11.bam.c4gh
 
 Finally, check that samtools can open the new file:
 ```sh
-samtools view htsnexus11.bam
+samtools view htsnexus_11.bam
 ```
 or, if you don't have samtools installed
 ```sh
