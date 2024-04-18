@@ -12,13 +12,10 @@ services:
     restart: always
     healthcheck:
       test: wget -O /dev/null -q http://localhost:7200/protocol || exit 1
-      interval: ${FIAB_healthcheck_interval:-1m}
-      # start_interval: 10s
+      interval: ${HEALTHCHECK_INTERVAL:-1m}
       timeout: 5s
       retries: 5
       start_period: 30s
-    # environment:
-    #   GDB_JAVA_OPTS: -Dgraphdb.auth.methods=basic
     depends_on:
       graphdb-setup:
         condition: service_completed_successfully
@@ -38,22 +35,21 @@ services:
       - --spring.config.location=classpath:/application.yml,file:/fdp/application-production.yml
     healthcheck:
       test: curl --fail --silent localhost:80/actuator/health | grep UP || exit 1
-      interval: ${FIAB_healthcheck_interval:-1m}
-      # start_interval: 10s
+      interval: ${HEALTHCHECK_INTERVAL:-1m}
       timeout: 5s
       retries: 5
       start_period: 40s
     environment:
-      - FDP_MONGO_HOST=mongo
-      - FDP_MONGO_USER=root
-      - FDP_MONGO_PASS=password
-      - FDP_MONGO_PORT=27017
-      - FDP_MONGO_DB=fdp
+      - FDP_MONGO_HOST=${FDP_MONGO_HOST}
+      - FDP_MONGO_USER=${FDP_MONGO_USER}
+      - FDP_MONGO_PASS=${FDP_MONGO_PASS}
+      - FDP_MONGO_PORT=${FDP_MONGO_PORT}
+      - FDP_MONGO_DB=${FDP_MONGO_DB}
       - FDP_TRIPLE_STORE_TYPE=4
-      - FDP_TRIPLE_STORE_URL=http://graphdb:7200
-      - FDP_TRIPLE_STORE_REPOSITORY=fdp
-      - FDP_TRIPLE_STORE_USERNAME=fdp
-      - FDP_TRIPLE_STORE_PASSWORD=topsecret
+      - FDP_TRIPLE_STORE_URL=${FDP_GraphDB_Url}
+      - FDP_TRIPLE_STORE_REPOSITORY=${FDP_GraphDB_Repo}
+      - FDP_TRIPLE_STORE_USERNAME=${FDP_GraphDB_User}
+      - FDP_TRIPLE_STORE_PASSWORD=${FDP_GraphDB_Pass}
     depends_on:
       mongo:
         condition: service_healthy
@@ -84,12 +80,11 @@ services:
     image: mongo:4.2.3
     restart: always
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_ROOT_USERNAME=${FDP_MONGO_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${FDP_MONGO_PASS}
     healthcheck:
-      test: mongo --eval 'db.runCommand("ping").ok' localhost:27017/test --quiet || exit 1
-      interval: ${FIAB_healthcheck_interval:-1m}
-      # start_interval: 10s
+      test: mongo --eval 'db.runCommand("ping").ok' localhost:${FDP_MONGO_PORT}/test --quiet || exit 1
+      interval: ${HEALTHCHECK_INTERVAL:-1m}
       timeout: 5s
       retries: 5
       start_period: 30s
@@ -102,9 +97,9 @@ services:
     # https://github.com/CARE-SM/beaconAPI4CARESM
     restart: always
     environment:
-      - TRIPLESTORE_URL=http://graphdb:7200/repositories/caresm
-      - TRIPLESTORE_USERNAME=caresm
-      - TRIPLESTORE_PASSWORD=topsecret
+      - TRIPLESTORE_URL=${BEACON_TRIPLESTORE_URL}
+      - TRIPLESTORE_USERNAME=${BEACON_TRIPLESTORE_USERNAME}
+      - TRIPLESTORE_PASSWORD=${BEACON_TRIPLESTORE_PASSWORD}
       - FILTER_SEX=True
       - FILTER_DISEASE=True
       - FILTER_SYMPTOM=True
