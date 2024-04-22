@@ -1,0 +1,13 @@
+services:
+
+  notebook:
+    ports:
+      - ${JUPYTER_PORT}:8888
+
+volumes:
+  ejp-rd-notebook:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: ${JUPYTER_LOCAL_PATH}

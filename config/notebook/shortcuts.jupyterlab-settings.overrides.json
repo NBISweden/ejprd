@@ -1,0 +1,24 @@
+{
+    "@jupyterlab/shortcuts-extension:shortcuts": {
+        "shortcuts": [
+            {
+                "args": {},
+                "command": "inline-completer:next",
+                "keys": [
+                    "Alt ]"
+                ],
+                "selector": ".jp-mod-completer-enabled",
+                "disabled": true
+            },
+            {
+                "args": {},
+                "command": "inline-completer:previous",
+                "keys": [
+                    "Alt ["
+                ],
+                "selector": ".jp-mod-completer-enabled",
+                "disabled": true
+            }
+        ]
+    }
+}
