@@ -25,11 +25,12 @@ Get the token from the auth service using
 Read your public key. This will be used for (re-)encrypting the file before it's sent to you.
 ```
 pubkey=$(base64 -w0 keys/c4gh.pub.pem)
+# macOS: pubkey=$(base64 -i keys/c4gh.pub.pem)
 ```
 
 Now you should be able  make the requests to the htsget server. To request the (byte range of) chromosome 11 of the file `htsnexus_test_NA12878.bam` run:
  ```sh
- curl -v -H "Client-Public-Key: $pubkey" -H "Authorization: Bearer $token" -H -k http://localhost:8088/reads/DATASET0001/htsnexus_test_NA12878?referenceName=11
+ curl -v -H "Client-Public-Key: $pubkey" -H "Authorization: Bearer $token" -H -k "http://localhost:8088/reads/DATASET0001/htsnexus_test_NA12878?referenceName=11"
  ```
 
  The request will return a ticket of how to download the requested partial file:
