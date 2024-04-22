@@ -3,14 +3,24 @@
 To be updated and specialized for the ejprd use case.
 # Set up starter-kit-storage-and-interfaces in demo mode
 
+## Setting up from GDI Starter kit source
+
 1. Download the repo https://github.com/GenomicDataInfrastructure/starter-kit-storage-and-interfaces/
 1. Go into the repo's root folder `cd starter-kit-storage-and-interfaces`.
-1. Check out branch `feat/htsget-crypt4gh`.
+1. Check out the hash `7767b1c8a487780f9459d1baed2d127ca72df485` (`git checkout 7767b1c8a487780f9459d1baed2d127ca72df485`).
 
 1. To start the stack:
 ```shell
 docker compose -f docker-compose-demo.yml up -d
 ```
+
+## Setting up using git submodules of this repository
+1. Update submodules (`git submodule update`)
+1. To start the stack:
+   ```sh
+   docker compose --project-directory config/gdi-starter-kit up -d
+   ```
+## Demo mode
 
 The services will run in demo mode, with a mock-oidc in place of LS-AAI.
 Test data is loaded, loaded from here  https://github.com/ga4gh/htsget-refserver/tree/main/data/gcp/gatk-test-data/wgs_bam.

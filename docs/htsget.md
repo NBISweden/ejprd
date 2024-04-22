@@ -2,14 +2,19 @@
 > to be updated when
 > - branches are merged, images have final names
 
-## Setting up
+## Setting up from GDI Starter kit source
 1. Make sure you have the services in [storage-and-interfaces running](/docs/storage-and-interfaces.md). You might have 
    restart all services.
 1. Clone the repo https://github.com/GenomicDataInfrastructure/starter-kit-htsget.
-1. Check out the branch `feature/rust-htsget`
+1. Check out the hash `5b79a7cb6b1d33e3644089b90c62e161a8afc35a` (`git checkout 5b79a7cb6b1d33e3644089b90c62e161a8afc35a`)
 1. Run `docker compose up -d`
 
-
+## Setting up using git submodules of this repository
+1. Update submodules (`git submodule update`)
+1. To start the stack:
+   ```sh
+   docker compose --project-directory config/gdi-starter-kit up -d
+   ```
 
 ## Testing
 Get the token from the auth service using

@@ -1,0 +1,3 @@
+include:
+  - starter-kit-storage-and-interfaces/docker-compose-demo.yml
+  - starter-kit-htsget/docker-compose.yml
