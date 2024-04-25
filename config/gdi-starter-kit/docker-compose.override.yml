@@ -5,25 +5,25 @@ services:
       - oidc
     healthcheck:
       test: python3 -c 'import requests; print(requests.get(url = "https://localhost:8080/jwk", verify="/shared/cert/ca.crt").text)' || exit 1
-    restart: never
+    restart: no
 
   rabbitmq:
     user: rabbitmq
     healthcheck:
       test: rabbitmq-diagnostics -q check_running && rabbitmq-diagnostics -q check_local_alarms
-    restart: never
+    restart: no
     volumes:
       - rabbitmq:/var/lib/rabbitmq
 
   postgres:
     healthcheck:
       test: pg_isready -h localhost -U postgres
-    restart: never
+    restart: no
 
   s3:
     healthcheck:
       test: curl -fq http://localhost:9000/minio/health/live
-    restart: never
+    restart: no
 
   s3inbox:
     depends_on:
@@ -34,7 +34,7 @@ services:
     extra_hosts: !override []  # Don’t rely on Docker internals
     networks:
       - oidc  # This network replaces Docker internals
-    restart: never
+    restart: no
 
   download:
     environment:
@@ -42,7 +42,7 @@ services:
     extra_hosts: !override []  # Don’t rely on Docker internals
     networks:
       - oidc  # This network replaces Docker internals
-    restart: never
+    restart: no
     depends_on:
       - data_loader
 
@@ -56,28 +56,28 @@ services:
         RUN pip install --upgrade pip > /dev/null
         RUN pip install aiohttp Authlib joserfc requests > /dev/null
     image: credentials
-    restart: never
+    restart: no
 
   data_loader:
     depends_on:
       - ingest
       - verify
-    restart: never
+    restart: no
 
   finalize:
-    restart: never
+    restart: no
 
   reencrypt:
-    restart: never
+    restart: no
 
   mapper:
-    restart: never
+    restart: no
 
   verify:
-    restart: never
+    restart: no
 
   ingest:
-    restart: never
+    restart: no
 
   htsget:
     extra_hosts: !override []  # Don’t rely on Docker internals
