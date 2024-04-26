@@ -1,0 +1,103 @@
+services:
+  oidc:
+    extra_hosts: !override []  # Don’t rely on Docker internals
+    networks:
+      - oidc
+    healthcheck:
+      test: python3 -c 'import requests; print(requests.get(url = "https://localhost:8080/jwk", verify="/shared/cert/ca.crt").text)' || exit 1
+    restart: no
+
+  rabbitmq:
+    user: rabbitmq
+    healthcheck:
+      test: rabbitmq-diagnostics -q check_running && rabbitmq-diagnostics -q check_local_alarms
+    restart: no
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
+
+  postgres:
+    healthcheck:
+      test: pg_isready -h localhost -U postgres
+    restart: no
+
+  s3:
+    healthcheck:
+      test: curl -fq http://localhost:9000/minio/health/live
+    restart: no
+
+  s3inbox:
+    depends_on:
+      oidc:
+        condition: service_healthy
+    environment:
+      - SERVER_JWTPUBKEYURL=https://oidc:8080/jwk
+    extra_hosts: !override []  # Don’t rely on Docker internals
+    networks:
+      - oidc  # This network replaces Docker internals
+    restart: no
+
+  download:
+    environment:
+      - OIDC_CONFIGURATION_URL=https://oidc:8080/.well-known/openid-configuration
+    extra_hosts: !override []  # Don’t rely on Docker internals
+    networks:
+      - oidc  # This network replaces Docker internals
+    restart: no
+    depends_on:
+      - data_loader
+
+  credentials:
+    build:  # Restarting this container is really slow when it needs to install packages
+      context: .
+      dockerfile_inline: |
+        FROM python:3.10-slim
+        RUN apt-get -o DPkg::Lock::Timeout=60 update >/dev/null
+        RUN apt-get -o DPkg::Lock::Timeout=60 install -y curl jq postgresql-client openssl >/dev/null
+        RUN pip install --upgrade pip > /dev/null
+        RUN pip install aiohttp Authlib joserfc requests > /dev/null
+    image: credentials
+    restart: no
+
+  data_loader:
+    depends_on:
+      - ingest
+      - verify
+    restart: no
+
+  finalize:
+    restart: no
+
+  reencrypt:
+    restart: no
+
+  mapper:
+    restart: no
+
+  verify:
+    restart: no
+
+  ingest:
+    restart: no
+
+  htsget:
+    extra_hosts: !override []  # Don’t rely on Docker internals
+    depends_on:
+      - download
+    networks:
+      - secure # This network replaces Docker internals
+    volumes:
+      - ./config:/config/
+
+  success:
+    image: hello-world
+    depends_on:
+      data_loader:
+        condition: service_completed_successfully
+      htsget:
+        condition: service_started
+
+volumes:
+  rabbitmq:
+
+networks:
+  oidc:  # Persistent networks can be added to the docker host and referenced here 
