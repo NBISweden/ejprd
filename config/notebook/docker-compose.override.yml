@@ -3,6 +3,10 @@ services:
   notebook:
     ports:
       - ${JUPYTER_PORT}:8888
+    networks:
+      - oidc
+      - public
+      - secure
 
 volumes:
   ejp-rd-notebook:
@@ -11,3 +15,14 @@ volumes:
       type: 'none'
       o: 'bind'
       device: ${JUPYTER_LOCAL_PATH}
+
+networks:
+  oidc:  # Persistent networks can be added to the docker host and referenced here 
+    name: ejprd-oidc
+    external: true
+  public:
+    name: ejprd-public
+    external: true
+  secure:
+    name: ejprd-secure
+    external: true
