@@ -1,17 +1,9 @@
 # FAIR Data Point and EJP-RD Beacon API implementation
 
-Test in the local configuration folder (currently identical to global)
+Start the services from the root of this repository:
 
-```shell
-cd config/fair-in-a-box
-docker-compose up -d
-```
-
-
-**Global configuration.** Go to the root of this repository and run
-
-```shell
-docker-compose up -d
+```sh
+docker compose --project-directory config/fair-in-a-box up -d
 ```
 
 Access the services: 

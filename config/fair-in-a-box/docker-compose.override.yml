@@ -40,11 +40,18 @@ networks:
   graphdb-setup:
     internal: true
   resource-metadata-internal:
-    internal: true
+    # internal: true
+    name: ejprd-secure
+    external: true
   care-sm-data-internal:
-    internal: true
-  all-authenticated-users:
-    internal: true
-  public:
+    # internal: true
+    name: ejprd-secure
+    external: true
   fdp-default:
 
+  public:
+    name: ejprd-public
+    external: true
+  secure:
+    name: ejprd-secure
+    external: true

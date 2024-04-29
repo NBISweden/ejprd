@@ -14,6 +14,7 @@ services:
     restart: no
     volumes:
       - rabbitmq:/var/lib/rabbitmq
+    ports: !override []
 
   postgres:
     healthcheck:
@@ -24,6 +25,7 @@ services:
     healthcheck:
       test: curl -fq http://localhost:9000/minio/health/live
     restart: no
+    ports: !override []
 
   s3inbox:
     depends_on:
@@ -35,6 +37,7 @@ services:
     networks:
       - oidc  # This network replaces Docker internals
     restart: no
+    ports: !override []
 
   download:
     environment:
@@ -45,6 +48,8 @@ services:
     restart: no
     depends_on:
       - data_loader
+    ports: !override
+      - ${GDI_DOWNLOADS_PORT:-8443}:8443
 
   credentials:
     build:  # Restarting this container is really slow when it needs to install packages
@@ -87,6 +92,8 @@ services:
       - secure # This network replaces Docker internals
     volumes:
       - ./config:/config/
+    ports: !override
+      - ${GDI_HTSGET_PORT:-8088}:8080
 
   success:
     image: hello-world
@@ -101,3 +108,11 @@ volumes:
 
 networks:
   oidc:  # Persistent networks can be added to the docker host and referenced here 
+    name: ejprd-oidc
+    external: true
+  public:
+    name: ejprd-public
+    external: true
+  secure:
+    name: ejprd-secure
+    external: true
