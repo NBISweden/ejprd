@@ -11,13 +11,26 @@ docker network create ejprd-secure
 ```
 
 ### GDI Starter Kit services:
-See documentation for [htsget](docs/htsget.md) and [storage and interfaces](docs/storage-and-interfaces.md).
+Run the following commands or see documentation for [htsget](docs/htsget.md) and [storage and interfaces](docs/storage-and-interfaces.md) configuration and usage:
+
+```{sh}
+git submodule update
+docker compose --project-directory config/gdi-starter-kit up -d
+```
 
 ### EJP-RD Services
-See documentation for [FAIR Data Point and EJP-RD Beacon](docs/fair-in-a-box.md).
+Run the following command or see documentation for [FAIR Data Point and EJP-RD Beacon](docs/fair-in-a-box.md) configuration and usage:
+
+```{sh}
+docker compose --project-directory config/fair-in-a-box up -d
+```
 
 ### Utilities
-See documentation for [Jupyter Lab](docs/notebook.md).
+Run the following command or see documentation for [Jupyter Lab](docs/notebook.md) configuration and usage:
+
+```{sh}
+docker compose --project-directory config/notebook up -d
+```
 
 ## Status
 This repo will contain

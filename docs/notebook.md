@@ -1,10 +1,9 @@
 # Jupyter Notebook
 
-Test in the local configuration folder (currently identical to global)
+Start the services from the root of the repository:
 
-```shell
-cd config/notebook
-docker-compose up -d
+```sh
+docker compose --project-directory config/notebook up -d
 ```
 
 Access the service (preconfigured password: pass):
