@@ -61,7 +61,7 @@ curl -s -H "Authorization: Bearer $token" "http://localhost:8443/metadata/datase
 
 ```shell
 fileID=$(curl -s -H "Authorization: Bearer $token" "http://localhost:8443/metadata/datasets/$datasetID/files" | jq -r '.[0].fileId')
-filename=$(curl -s -H "Authorization: Bearer $token" "http://localhost:8443/metadata/datasets/$datasetID/files" | jq -r '.[0].displayFileName' | cut -d '.' -f 1,2 )
+filename=$(curl -s -H "Authorization: Bearer $token" "http://localhost:8443/metadata/datasets/$datasetID/files" | jq -r '.[0].displayFileName' | cut -d '.' -f 1,2,3 )
 curl -s -H "Authorization: Bearer $token" http://localhost:8443/files/$fileID -o "$filename"
 ```
-Check that the file `$filename` (`htsnexus_test_NA12878.bam`) has been created, and that it contains (binary) data.
+Check that the file `$filename` (eg `Case1_IC.reg.vcf`) has been created, and that it contains data.
