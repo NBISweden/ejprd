@@ -99,12 +99,13 @@ services:
   htsgetDecrypt:
     image: harbor.nbis.se/gdi/htsget-rs:20240415
     command: ["htsget-actix", "--config", "/config/decrypt-config.toml"]
+    container_name: htsgetDecrypt
     depends_on:
       - download
       - certmaker
       - reencrypt
     ports:
-      - 8089:8080
+      - ${GDI_HTSGETDECRYPT_PORT:-8089}:8080
     environment:
       - FORMATTING_STYLE=Pretty
       - RUST_LOG=debug
