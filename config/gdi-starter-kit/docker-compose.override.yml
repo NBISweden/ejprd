@@ -103,6 +103,40 @@ services:
       htsget:
         condition: service_started
 
+  beacon:
+    image: harbor.nbis.se/test/ejprd-gdi-beacon:1
+    networks:
+      - secure
+      - public
+    depends_on:
+      - db
+    ports:
+      - "5050:5050"
+    working_dir: '/beacon'
+    entrypoint: ['python','-m','beacon']
+    volumes:
+      - ./config/beacon_conf.py:/beacon/beacon/conf.py
+      - ./config/datasets.yml:/beacon/request/datasets.yml
+      - ./config/cohorts.yml:/beacon/request/cohorts.yml
+      - ./config/public_datasets.yml:/beacon/permissions/public_datasets.yml
+      - ./config/beacon.env:/beacon/permissions/permissions-ui/.env
+
+  db:
+    image: mongo:5
+    hostname: mongo
+    ports:
+      - 27019:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: beacon
+    volumes:
+      - ./mongo-init/:/docker-entrypoint-initdb.d/:ro
+      - ../../data/beaconized/:/docker-entrypoint-initdb.d/:ro
+      - ./config/beacondb/:/data/db/
+    networks:
+      - secure
+
 volumes:
   rabbitmq:
 
