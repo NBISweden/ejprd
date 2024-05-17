@@ -88,6 +88,7 @@ services:
     extra_hosts: !override []  # Don’t rely on Docker internals
     depends_on:
       - download
+      - reencrypt
     networks:
       - secure # This network replaces Docker internals
     volumes:
@@ -101,6 +102,7 @@ services:
     depends_on:
       - download
       - certmaker
+      - reencrypt
     ports:
       - 8089:8080
     environment:
