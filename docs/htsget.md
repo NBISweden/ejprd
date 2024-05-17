@@ -1,7 +1,3 @@
-> [!NOTE]
-> to be updated when
-> - branches are merged, images have final names
-
 ## Setting up from GDI Starter kit source
 1. Make sure you have the services in [storage-and-interfaces running](/docs/storage-and-interfaces.md). You might have 
    restart all services.
