@@ -108,7 +108,7 @@ services:
       - secure
       - public
     ports:
-      - "5050:5050"
+      - "5051:5050"
 
   db:
     ports:

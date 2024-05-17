@@ -6,10 +6,12 @@ services:
   beacon:
     image: harbor.nbis.se/test/ejprd-gdi-beacon:1
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     working_dir: '/beacon'
-    entrypoint: ['python','-m','beacon']
+    entrypoint: ['python', '-m', 'beacon']
     volumes:
+      - ./config/beacon_reindex.sh:/docker-entrypoint-initdb.d/reindex.sh:ro
       - ./config/beacon_conf.py:/beacon/beacon/conf.py
       - ./config/datasets.yml:/beacon/request/datasets.yml
       - ./config/cohorts.yml:/beacon/request/cohorts.yml
@@ -23,6 +25,11 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
       MONGO_INITDB_DATABASE: beacon
+    healthcheck:
+      test: ["CMD", "sh", "-c", "[ -f /var/log/mongodb/mongoinitialized ] || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
     volumes:
-      - ./mongo-init/:/docker-entrypoint-initdb.d/:ro
-      - ../../data/beaconized/:/docker-entrypoint-initdb.d/:ro
+      - ./config/mongoinit/:/docker-entrypoint-initdb.d/:ro
+      - ../../data/beaconized/:/data
