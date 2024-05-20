@@ -88,12 +88,32 @@ services:
     extra_hosts: !override []  # Don’t rely on Docker internals
     depends_on:
       - download
+      - reencrypt
     networks:
       - secure # This network replaces Docker internals
     volumes:
       - ./config:/config/
     ports: !override
       - ${GDI_HTSGET_PORT:-8088}:8080
+
+  htsgetDecrypt:
+    image: harbor.nbis.se/gdi/htsget-rs:20240415
+    command: ["htsget-actix", "--config", "/config/decrypt-config.toml"]
+    container_name: htsgetDecrypt
+    depends_on:
+      - download
+      - certmaker
+      - reencrypt
+    ports:
+      - ${GDI_HTSGETDECRYPT_PORT:-8089}:8080
+    environment:
+      - FORMATTING_STYLE=Pretty
+      - RUST_LOG=debug
+    networks:
+      - secure # This network replaces Docker internals
+    volumes:
+      - ./config:/config
+      - certs:/certs
 
   success:
     image: hello-world
