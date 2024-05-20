@@ -11,10 +11,9 @@ services:
     working_dir: '/beacon'
     entrypoint: ['python', '-m', 'beacon']
     volumes:
-      - ./config/beacon_reindex.sh:/docker-entrypoint-initdb.d/reindex.sh:ro
       - ./config/beacon_conf.py:/beacon/beacon/conf.py
-      - ./config/datasets.yml:/beacon/request/datasets.yml
-      - ./config/cohorts.yml:/beacon/request/cohorts.yml
+      - ./config/datasets.yml:/beacon/beacon/request/datasets.yml
+      - ./config/cohorts.yml:/beacon/beacon/request/cohorts.yml
       - ./config/public_datasets.yml:/beacon/permissions/public_datasets.yml
       - ./config/beacon.env:/beacon/permissions/permissions-ui/.env
 
