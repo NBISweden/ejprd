@@ -12,4 +12,4 @@ mongoimport --jsonArray --uri "mongodb://root:example@127.0.0.1:27017/beacon?aut
 mongoimport --jsonArray --uri "mongodb://root:example@127.0.0.1:27017/beacon?authSource=admin" --file /data/genomicVariations8_IC.json --collection genomicVariations
 mongoimport --jsonArray --uri "mongodb://root:example@127.0.0.1:27017/beacon?authSource=admin" --file /data/genomicVariations9_IC.json --collection genomicVariations
 
-touch /var/log/mongodb/mongoinitialized
+touch /data/db/mongoinitialized

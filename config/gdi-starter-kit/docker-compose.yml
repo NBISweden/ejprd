@@ -25,7 +25,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
       MONGO_INITDB_DATABASE: beacon
     healthcheck:
-      test: ["CMD", "sh", "-c", "[ -f /var/log/mongodb/mongoinitialized ] || exit 1"]
+      test: ["CMD", "sh", "-c", "[ -f /data/db/mongoinitialized ] || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 10
