@@ -6,6 +6,8 @@ Start the services from the root of this repository:
 docker compose --project-directory config/fair-in-a-box up -d
 ```
 
+Add B1MG data for the FDP and CARE-SM Beacon endpoint.
+
 Access the services: 
 
 * FAIR Data Point Client at http://localhost:7070 ([documentation](https://fairdatapoint.readthedocs.io/en/latest/) | [default users](https://fairdatapoint.readthedocs.io/en/latest/deployment/local-deployment.html))
