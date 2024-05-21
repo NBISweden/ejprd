@@ -6,8 +6,8 @@
 1. (First time only: ) Run:
    ```
    docker compose exec beacon python /beacon/beacon/reindex.py
-   docker compose exec python beacon/db/extract_filtering_terms.py
-   docker compose exec python beacon/db/get_descendants.py
+   docker compose exec beacon python beacon/db/extract_filtering_terms.py
+   docker compose exec beacon python beacon/db/get_descendants.py
    ```
 1. Beacon should be running at port 5050, try it `curl localhost:5050/api | jq .` Check that the `response.name` is set to a suitable name.
 1. Try to search for a specific variant:
