@@ -4,3 +4,7 @@
 [submodule "config/gdi-starter-kit/starter-kit-storage-and-interfaces"]
 	path = config/gdi-starter-kit/starter-kit-storage-and-interfaces
 	url = https://github.com/GenomicDataInfrastructure/starter-kit-storage-and-interfaces.git
+[submodule "data"]
+	path = data
+	url = https://github.com/NBISweden/ejprd-data.git
+	branch = feat/beaconize_data

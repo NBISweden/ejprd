@@ -123,8 +123,24 @@ services:
       htsget:
         condition: service_started
 
+  beacon:
+    networks:
+      - secure
+      - public
+    ports:
+      - "5050:5050"
+
+  db:
+    ports:
+      - 27019:27017
+    volumes:
+      - beacondb:/data/db/
+    networks:
+      - secure
+
 volumes:
   rabbitmq:
+  beacondb:
 
 networks:
   oidc:  # Persistent networks can be added to the docker host and referenced here 

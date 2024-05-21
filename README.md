@@ -1,5 +1,12 @@
 # EJP-RD - NBIS demo setup
 
+**Note**: This repository contains serveral `git submodules` that lock in specific versions of data and configurations located in other repositories. When you have used `git clone` or `git checkout _____` please remember to update the submodules.
+
+```{sh}
+git submodule init
+git submodule update
+```
+
 ## Running using docker-compose
 ### Common preparation
 Create persistent docker networks that can be used to connect services:
@@ -14,7 +21,6 @@ docker network create ejprd-secure
 Run the following commands or see documentation for [htsget](docs/htsget.md) and [storage and interfaces](docs/storage-and-interfaces.md) configuration and usage:
 
 ```{sh}
-git submodule update
 docker compose --project-directory config/gdi-starter-kit up -d
 ```
 
