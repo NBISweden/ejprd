@@ -138,6 +138,13 @@ services:
     networks:
       - secure
 
+  funnel:
+    networks:
+      - secure
+      - public
+    ports:
+      - 8111:8000
+
 volumes:
   rabbitmq:
   beacondb:

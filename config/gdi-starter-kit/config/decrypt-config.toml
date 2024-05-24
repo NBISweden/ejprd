@@ -14,7 +14,7 @@ send_encrypted_to_client = false  # if true, htsget will calculate coordinates f
 
 [resolvers.storage]
 # The url that will be returned in the response to the client
-response_url = "http://localhost:8443/s3/"
+response_url = "http://download:8443/s3/"
 # forward_headers must be true in order to pass the clients token and public key to the storage endpoint
 forward_headers = true
 

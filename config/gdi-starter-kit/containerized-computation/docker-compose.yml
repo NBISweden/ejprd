@@ -1,0 +1,9 @@
+
+services:
+  funnel:
+    image: harbor.nbis.se/test/ejprd-gdi-containerizedcomputation:1
+    command: ["/app/funnel", "server", "--config", "/app/my-config.yaml", "run"]
+    volumes:
+      - ../config/funnel-config.yaml:/app/my-config.yaml
+      - ./output/:/opt/funnel/output/
+    privileged: true
