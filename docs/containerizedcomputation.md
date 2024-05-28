@@ -8,10 +8,10 @@
 - Get a token:
     `token=$(curl -s -k https://localhost:8080/tokens | jq -r '.[0]')`
 - Put it in your task file:
-      `sed -i -e "s/bearer:.*@/bearer:$token@/g" config/gdi-starter-kit/containerized-computation/task1.json`
+      `sed -e "s/{{TOKEN}}/$token/g" config/gdi-starter-kit/containerized-computation/task1.json > task.json`
 - The task file `task1.json` contains instructions for downloading chromosome 11 of htsnexus_test_NA12878,
   using htsget, and to count the number of lines in this file.
-- Submit your task: `curl 'localhost:8111/v1/tasks' --data @config/gdi-starter-kit/containerized-computation/task1.json`
+- Submit your task: `curl 'localhost:8111/v1/tasks' --data @task.json`
 - Open http://localhost:8111/ in your browser to see the status of the job.
 - When the job has completed, you should have a new file `linecount.txt` in your `output/`
   folder. This file should contain the number of lines in the requested bam file.
