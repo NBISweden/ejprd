@@ -1,7 +1,7 @@
 {
   "name": "htsget working",
   "inputs": [{
-    "url": "htsget://bearer:eyJ0eXAiOiJKV1QiLCJqa3UiOiJodHRwczovL29pZGM6ODA4MC9qd2siLCJhbGciOiJFUzI1NiIsImtpZCI6IjZXUFMxNDQ2Z1VhZlZYU0N0aW1yaGxLc3U5X1NxcWcwUk5Ea1NJQkkyRUUifQ.eyJzdWIiOiJyZXF1ZXN0ZXJAZGVtby5vcmciLCJhdWQiOlsiYXVkMSIsImF1ZDIiXSwiYXpwIjoiYXpwIiwic2NvcGUiOiJvcGVuaWQgZ2E0Z2hfcGFzc3BvcnRfdjEiLCJpc3MiOiJodHRwczovL29pZGM6ODA4MC8iLCJleHAiOjk5OTk5OTk5OTksImlhdCI6MTU2MTYyMTkxMywianRpIjoiNmFkN2FhNDItM2U5Yy00ODMzLWJkMTYtNzY1Y2I4MGMyMTAyIn0.C0BMewgaC7nvDsNBJLleJASn6Oks4iHeiFhMOeJg0zxz9lSXgqUuycxoUddfxt8ED7dry8vzUBTTr_9XYzGiCg@htsgetDecrypt:8080/reads/DATASET0001/htsnexus_test_NA12878?referenceName=11",
+    "url": "htsget://bearer:{{TOKEN}}@htsgetDecrypt:8080/reads/DATASET0001/htsnexus_test_NA12878?referenceName=11",
     "path": "/inputs/thafile.bam"
   }],
   "outputs": [{
