@@ -25,7 +25,7 @@ services:
     healthcheck:
       test: curl -fq http://localhost:9000/minio/health/live
     restart: no
-    # ports: !override []
+    ports: !override []
 
   s3inbox:
     depends_on:
