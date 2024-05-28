@@ -2,6 +2,11 @@
 services:
   funnel:
     image: harbor.nbis.se/test/ejprd-gdi-containerizedcomputation:1
+    # to rebuild the image, download https://github.com/CERIT-SC/funnel-gdi
+    # and uncomment the lines below:
+    # build:
+    #  context: .
+    #  dockerfile: Dockerfile.dind
     command: ["/app/funnel", "server", "--config", "/app/my-config.yaml", "run"]
     volumes:
       - ../config/funnel-config.yaml:/app/my-config.yaml
