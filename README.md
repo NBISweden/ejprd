@@ -3,6 +3,7 @@
 **Note**: This repository contains serveral `git submodules` that lock in specific versions of data and configurations located in other repositories. When you have used `git clone` or `git checkout _____` please remember to update the submodules.
 
 ```{sh}
+git submodule init
 git submodule update
 ```
 

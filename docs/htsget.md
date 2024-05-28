@@ -13,18 +13,25 @@
    ```
 
 ## Testing
+The docker compose will start two instances of htsget, one for downloading encrypted data (running on port 8088 by default),
+and one for downloading decrypted data (running on port 8089 by default).
+
 Get the token from the auth service using
  ```sh
  token=$(curl -s -k https://localhost:8080/tokens | jq -r '.[0]')
  ```
 
-Read your public key. This will be used for (re-)encrypting the file before it's sent to you.
+If you want to work with encrypted data, you must have a public key.
+This will be used for (re-)encrypting the file before it's sent to you.
+Read your public key:
 ```
 pubkey=$(base64 -w0 keys/c4gh.pub.pem)
 # macOS: pubkey=$(base64 -i keys/c4gh.pub.pem)
 ```
+For the decrypted case, the header `Client-Public-Key` below can be left out.
 
 Now you should be able  make the requests to the htsget server. To request the (byte range of) chromosome 19 of the file `Case7_IC.reg.vcf` run:
+
  ```sh
  curl -v -H "Client-Public-Key: $pubkey" -H "Authorization: Bearer $token" -H -k "http://localhost:8088/variants/DATASET0001/region_vcfs/Case7_IC.reg?referenceName=19&start=39955351"
  ```
