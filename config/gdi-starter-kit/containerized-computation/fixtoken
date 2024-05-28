@@ -1,5 +1,0 @@
-#! /bin/bash
-# replace place holder (for first time usage)
-sed -i -e "s/{{TOKEN}}/$1/g" $2
-# replace existing token
-sed -i -E "s/bearer:.*@/bearer:$1@/g" $2

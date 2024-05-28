@@ -9,7 +9,7 @@
 - Get a token:
     `token=$(curl -s -k https://localhost:8080/tokens | jq -r '.[0]')`
 - Put it in your task file:
-     `./fixtoken $token task1.json`
+      `sed -i -e "s/bearer:.*@/bearer:$token@/g" task1.json`
 - The task file `task1.json` contains instructions for downloading chromosome 11 of htsnexus_test_NA12878,
   using htsget, and to count the number of lines in this file.
 - Submit your task: `curl 'localhost:8111/v1/tasks' --data @task1.json`
