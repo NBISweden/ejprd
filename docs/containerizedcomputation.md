@@ -22,6 +22,7 @@ When a task is submitted, the funnel container will download the requested
 file and then spawn an inner execution container, which will execute the task (line
 counting).
 
+See [the GA4GH's documentation](https://www.ga4gh.org/product/task-execution-service-tes/) for more information the Task Execution Service (TES).
 Below are some instructions for the most relevant parts of the task file `task1.json`:
 -  `inputs.url`: this is the url to htsget and the request for the partial file
 -  `outputs.path`: the path of the execution container that will be copied to the user on localhost
