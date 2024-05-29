@@ -396,4 +396,4 @@ FTPStorage:
 HTSGETStorage:
   Disabled: false
   Protocol: http
-  SendPublicKey: false
+  SendPublicKey: true
