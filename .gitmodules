@@ -7,4 +7,4 @@
 [submodule "data"]
 	path = data
 	url = https://github.com/NBISweden/ejprd-data.git
-	branch = feat/beaconize_data
+	branch = main
