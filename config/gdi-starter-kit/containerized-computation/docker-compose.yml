@@ -1,8 +1,9 @@
 
 services:
   funnel:
-    image: harbor.nbis.se/test/ejprd-gdi-containerizedcomputation:1
-    # to rebuild the image, download https://github.com/CERIT-SC/funnel-gdi
+    image: harbor.nbis.se/test/ejprd-gdi-containerizedcomputation:2
+    # to rebuild the image, download https://github.com/CERIT-SC/funnel-gdi,
+    # copy the file Dockerfile.dind from this repo to funnel-gdi
     # and uncomment the lines below:
     # build:
     #  context: .
@@ -11,4 +12,6 @@ services:
     volumes:
       - ../config/funnel-config.yaml:/app/my-config.yaml
       - ./output/:/opt/funnel/output/
+      - ./pub64.key:/opt/funnel/.public.key
+      - ./private.key:/opt/funnel/.private.key
     privileged: true
