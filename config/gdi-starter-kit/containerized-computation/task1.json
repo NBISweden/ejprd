@@ -1,8 +1,8 @@
 {
   "name": "htsget working",
   "inputs": [{
-    "url": "htsget://bearer:{{TOKEN}}@htsgetDecrypt:8080/reads/DATASET0001/htsnexus_test_NA12878?referenceName=11",
-    "path": "/inputs/thafile.bam"
+    "url": "htsget://bearer:{{TOKEN}}@htsget:8080/reads/DATASET0001/bams/htsnexus_test_NA12878?referenceName=11",
+    "path": "/inputs/htsnexus.bam"
   }],
   "outputs": [{
     "url": "file:///opt/funnel/output/",
@@ -12,7 +12,7 @@
   "executors": [{
     "image": "alpine",
     "command": [
-      "wc", "-l", "/inputs/thafile.bam"
+      "wc", "-l", "/inputs/htsnexus.bam"
     ],
     "stdout": "/outputs/linecount.txt"
   }
