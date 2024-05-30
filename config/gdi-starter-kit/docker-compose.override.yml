@@ -46,8 +46,6 @@ services:
     networks:
       - oidc  # This network replaces Docker internals
     restart: no
-    depends_on:
-      - data_loader
     ports: !override
       - ${GDI_DOWNLOADS_PORT:-8443}:8443
 
@@ -67,6 +65,10 @@ services:
     depends_on:
       - ingest
       - verify
+      - mapper
+      - finalize
+      - s3inbox
+      - download
     restart: no
 
   finalize:
@@ -102,7 +104,6 @@ services:
     container_name: htsgetDecrypt
     depends_on:
       - download
-      - certmaker
       - reencrypt
     ports:
       - ${GDI_HTSGETDECRYPT_PORT:-8089}:8080
