@@ -12,7 +12,7 @@ RUN --mount=type=cache,target=/root/.cache/go-build make build
 
 FROM python:3.9-slim
 RUN apt-get update && apt-get install -y --no-install-recommends curl 
-RUN pip3 install htsget crypt4gh --break-system-packages && rm -rf ~/.cache
+RUN pip3 install htsget crypt4gh==1.7 --break-system-packages && rm -rf ~/.cache
 
 RUN apt-get update && \
     apt-get install -y \
