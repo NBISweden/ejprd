@@ -1,7 +1,12 @@
 ### Start the service:
+- If you have not already loaded the data to the archive, or wish to reload it, run:
+  ```
+  docker compose --project-directory config/gdi-starter-kit down --remove-orphans -v
+  docker compose --project-directory config/gdi-starter-kit up data_loader
+  ```
 - Run `docker compose --project-directory config/gdi-starter-kit up funnel -d`
 - To try it with the rest of the stack, also run:
-`docker compose --project-directory config/gdi-starter-kit up htsgetDecrypt -d`
+`docker compose --project-directory config/gdi-starter-kit up htsget -d`
 
 
 ### Access the service:
@@ -14,7 +19,19 @@
 - Submit your task: `curl 'localhost:8111/v1/tasks' --data @task.json`
 - Open http://localhost:8111/ in your browser to see the status of the job.
 - When the job has completed, you should have a new file `linecount.txt` in your `output/`
-  folder. This file should contain the number of lines in the requested bam file.
+  folder (under `config/gdi-starter-kit/containerized-computation`). This file should contain the number of lines in the requested bam file.
+
+## How to re-create keys
+- The funnel container uses a cryptgh for receiving data from htsget. The private key must be unencrypted, so that
+   it does not require a password. To generate such a key pair, run:
+   ```
+   crypt4gh-keygen -f --nocrypt --sk priv.key --pk pub.key
+   ```
+- The public key used by funnel must be base64 encoded and start with an empty line.
+  To generate such a key file, run
+  ```
+  (echo ""; base64 -w0 pub.key) > pub64.key
+  ```
 
 
 ### About the task execution:
@@ -32,5 +49,5 @@ Below are some instructions for the most relevant parts of the task file `task1.
 
 
 ### Further comments:
-Note that the [htsget config](https://github.com/NBISweden/ejprd/blob/feat/add_containerized_compute/config/gdi-starter-kit/config/decrypt-config.toml#L17) has been updated, so that the response_url is set to http://download:8443/s3/,
-rather than http://localhost:8443/s3/, as the funnel container will do the requests to download.
+Note that the [htsget config](https://github.com/NBISweden/ejprd/blob/feat/add_containerized_compute/config/gdi-starter-kit/config/download-config.toml#L17) has been updated, so that the response_url is set to http://download:8443/s3/,
+rather than http://localhost:8443/s3/, since the the requests to download will be done from inside a (funnel) docker container.
