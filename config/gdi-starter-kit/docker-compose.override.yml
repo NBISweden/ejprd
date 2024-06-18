@@ -70,6 +70,13 @@ services:
       - s3inbox
       - download
     restart: no
+    volumes: !override
+      - ./config/load_data.sh:/load_data.sh
+      - ../../data/:/data/
+      - ./starter-kit-storage-and-interfaces/scripts/sda-admin:/sda-admin
+      - ./config/sda-cli:/sda-cli
+      - shared:/shared
+      - cacert:/cacert
 
   finalize:
     restart: no
