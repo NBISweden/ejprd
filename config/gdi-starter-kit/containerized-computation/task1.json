@@ -1,0 +1,20 @@
+{
+  "name": "htsget working",
+  "inputs": [{
+    "url": "htsget://bearer:{{TOKEN}}@htsget:8080/reads/DATASET0001/bams/htsnexus_test_NA12878?referenceName=11",
+    "path": "/inputs/htsnexus.bam"
+  }],
+  "outputs": [{
+    "url": "file:///opt/funnel/output/",
+    "path": "/outputs",
+    "type": "DIRECTORY"
+  }],
+  "executors": [{
+    "image": "alpine",
+    "command": [
+      "wc", "-l", "/inputs/htsnexus.bam"
+    ],
+    "stdout": "/outputs/linecount.txt"
+  }
+]
+}
