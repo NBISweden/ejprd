@@ -7,6 +7,11 @@ services:
       test: python3 -c 'import requests; print(requests.get(url = "https://localhost:8080/jwk", verify="/shared/cert/ca.crt").text)' || exit 1
     restart: no
 
+  auth:
+    extra_hosts: !override []  # Don’t rely on Docker internals
+    networks:
+      - oidc
+
   rabbitmq:
     user: rabbitmq
     healthcheck:
