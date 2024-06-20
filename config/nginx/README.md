@@ -1,0 +1,3 @@
+- `nginx.conf` should be copied/linked to `/etc/nginx/sites-available`
+- when updated, run `sudo certbot --nginx`
+- `overview.html` should be copied to `/var/www/html`
