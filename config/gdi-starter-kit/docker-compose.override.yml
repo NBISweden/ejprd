@@ -37,12 +37,12 @@ services:
       oidc:
         condition: service_healthy
     environment:
-      - SERVER_JWTPUBKEYURL=https://oidc:8080/jwk
-    extra_hosts: !override []  # Don’t rely on Docker internals
+      - SERVER_JWTPUBKEYURL=https://login.elixir-czech.org/oidc/jwk
+        #extra_hosts: !override []  # Don’t rely on Docker internals
     networks:
       - oidc  # This network replaces Docker internals
     restart: no
-    ports: !override []
+      #ports: !override []
 
   download:
     environment:
@@ -82,6 +82,8 @@ services:
       - ./config/sda-cli:/sda-cli
       - shared:/shared
       - cacert:/cacert
+    networks:
+      - oidc  # This network replaces Docker internals
 
   finalize:
     restart: no
