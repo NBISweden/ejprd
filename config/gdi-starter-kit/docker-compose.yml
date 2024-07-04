@@ -33,3 +33,19 @@ services:
     volumes:
       - ./config/mongoinit/:/docker-entrypoint-initdb.d/:ro
       - ../../data/beaconized/:/data
+
+  data_loader:
+    container_name: data_loader
+    command:
+      - "/bin/sh"
+      - "/load_data.sh"
+    depends_on:
+      s3inbox:
+        condition: service_started
+    image: python:3.10-alpine
+    networks:
+      - secure
+    volumes:
+      - ./scripts/load_data.sh:/load_data.sh
+      - shared:/shared
+      - cacert:/cacert

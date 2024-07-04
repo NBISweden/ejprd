@@ -77,6 +77,7 @@ services:
     restart: no
     volumes: !override
       - ./config/load_data.sh:/load_data.sh
+      - ./s3cmd.conf:/s3cmd.conf
       - ../../data/:/data/
       - ./starter-kit-storage-and-interfaces/scripts/sda-admin:/sda-admin
       - ./config/sda-cli:/sda-cli
@@ -84,6 +85,8 @@ services:
       - cacert:/cacert
     networks:
       - oidc  # This network replaces Docker internals
+    environment:
+      - MQ_CREDENTIALS=${rabbitmq_MQ_USER}:${rabbitmq_MQ_PASSWORD}
 
   finalize:
     restart: no

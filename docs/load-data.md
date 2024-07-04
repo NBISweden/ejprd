@@ -7,13 +7,17 @@ on the server, using the `data_loader` container. The second approach is describ
 Run the following steps:
 - upload the data to the server, somewhere under `~/ejprd/data`. Eg `~/ejprd/data/additionalbams`.
 - open `~/ejprd/config/gdi-starter-kit/config/load_data.sh` and modify:
-  - `DIR` at line 4. This should be set to where data is located. The folder `~/ejprd/data` wil
-     be located under `/data` in the container. For the given example path above, use `/data/additionalbams`.
+  - `DIR` at line 4. This should be set to where data is located. The folder `~/ejprd/data` will
+     be mounted on `/data` in the container. So for the given example path above, use `/data/additionalbams`.
     Everything in the specified folder will be uploaded to the archive.
   - `OUTPATH` at line 5. This will work as a prefix / parent folder for the files in the archive.
   - `DATASETID` at line 7 may also be updated. If it is, remember to also add a corresponding resource in REMS.
   - the accession ID at line 26 should be updated, so that the IDs for the files will not overlap with previously used ones.
-    Eg. `NEwBAM_%02d`. This will create the IDs `NEWBAM00`, `NEWBAM01`...
+    Eg. `NEWBAM_%02d 1`. This will create the IDs `NEWBAM01`, `NEWBAM02`...
+- Get your credentials file:
+  - Visit https://login.ejprd.nbis.se to download a `s3cmd.conf` file.
+  -  Log in, click Continue until you see the button "Download inbox s3cmd credentials". Click this.
+  - Upload the file to the server: `scp s3cmd.conf ubuntu@134.158.151.84:ejprd/config/gdi-starter-kit/`.
 - Run `docker compose up data_loader`.
 - Verify that the data is available by querying SDA download API:
 ```
