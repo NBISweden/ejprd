@@ -1,16 +1,21 @@
 services:
-  oidc:
-    extra_hosts: !override []  # Don’t rely on Docker internals
-    networks:
-      - oidc
-    healthcheck:
-      test: python3 -c 'import requests; print(requests.get(url = "https://localhost:8080/jwk", verify="/shared/cert/ca.crt").text)' || exit 1
-    restart: no
+  #oidc:
+  #  extra_hosts: !override []  # Don’t rely on Docker internals
+  #  networks:
+  #    - oidc
+  #  healthcheck:
+  #    test: python3 -c 'import requests; print(requests.get(url = "https://localhost:8080/jwk", verify="/shared/cert/ca.crt").text)' || exit 1
+  #  restart: no
 
   auth:
     extra_hosts: !override []  # Don’t rely on Docker internals
     networks:
       - oidc
+    environment:
+      - OIDC_PROVIDER=https://login.elixir-czech.org/oidc/
+      - OIDC_JWKPATH=/jwk
+      - OIDC_REDIRECTURL=https://login.ejprd.nbis.se/oidc/login
+
 
   rabbitmq:
     user: rabbitmq
@@ -31,22 +36,29 @@ services:
       test: curl -fq http://localhost:9000/minio/health/live
     restart: no
     ports: !override []
-
-  s3inbox:
-    depends_on:
-      oidc:
-        condition: service_healthy
     environment:
       - SERVER_JWTPUBKEYURL=https://login.elixir-czech.org/oidc/jwk
-        #extra_hosts: !override []  # Don’t rely on Docker internals
+
+
+  s3inbox:
+    environment:
+      - SERVER_JWTPUBKEYURL=https://login.elixir-czech.org/oidc/jwk
+      - LOG_LEVEL=debug
+    extra_hosts: !override []  # Don’t rely on Docker internals
     networks:
-      - oidc  # This network replaces Docker internals
-    restart: no
-      #ports: !override []
+      - oidc
+      - public
+      - secure
+    ports:
+      - "8000:8000"
+    restart: always
+    volumes:
+      - ${CONFIG_FILEPATH}:/config.yaml
+      - shared:/shared
 
   download:
     environment:
-      - OIDC_CONFIGURATION_URL=https://oidc:8080/.well-known/openid-configuration
+      - OIDC_CONFIGURATION_URL=https://login.elixir-czech.org/oidc/.well-known/openid-configuration
     extra_hosts: !override []  # Don’t rely on Docker internals
     networks:
       - oidc  # This network replaces Docker internals
