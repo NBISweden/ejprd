@@ -66,3 +66,43 @@ To upload more data to the archive, see [load-data.md](load-data.md).
   curl -v -H "Client-Public-Key: $pubkey" -H "Authorization: Bearer $token" -H -k \
   "https://htsget.ejprd.nbis.se/variants/DATASET0001/region_vcfs/Case7_IC.reg?referenceName=19&start=39955351"
   ```
+
+### Containerized computation
+Example TES file:
+```json
+{
+  "name": "htsget working",
+  "inputs": [{
+    "url": "htsget://bearer:{TOKEN}@htsget.ejprd.nbis.se/reads/DATASET0001/bams/Case3_M.reg?referenceName=11",
+    "path": "/inputs/Case3_M.reg.bam"
+
+  }],
+  "outputs": [{
+    "url": "file:///opt/funnel/output/",
+    "path": "/outputs",
+    "type": "DIRECTORY"
+  }],
+  "executors": [{
+    "image": "alpine",
+    "command": [
+      "wc", "-l", "/inputs/Case3_M.reg.bam"
+    ],
+    "stdout": "/outputs/linecount.txt"
+  }
+]
+}
+```
+To use it:
+```sh
+ curl 'https://cc.ejprd.nbis.se/v1/tasks' --data @task.json -u user:pass
+ ```
+
+ Open https://cc.ejprd.nbis.se/tasks in a browser to see if it's running.
+
+ The result will be available on the server (well, not optimal, should be fixed) under `~/ejprd/config/gdi-starter-kit/containerized-computation/output`.
+
+
+ *Future work*:
+  - Make the output appear somewhere nice.
+  - Funnel runs the python implementation of htsget. I'm unsure if it supports VCFs (the starter-kit-htsget does).
+  - It would be fairly simple to only allow running images from a specific registry, eg harbor.nbis.se. We could push the allowed images there and thus control what code that can be run.
