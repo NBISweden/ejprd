@@ -1,0 +1,19 @@
+[
+
+    {
+      "iss": "https://login.elixir-czech.org/oidc/",
+      "jku": "https://login.elixir-czech.org/oidc/jwk"
+    },
+    {
+      "iss": "https://login.aai.lifescience-ri.eu/oidc/",
+      "jku": "https://login.aai.lifescience-ri.eu/oidc/jwk"
+    },
+    {
+        "iss": "https://rems.ejprd.nbis.se/",
+        "jku": "https://rems.ejprd.nbis.se/api/jwk"
+    },
+    {
+        "iss": "http://demo1.example",
+        "jku": "htts://mockauth:8080/jwk"
+    }
+]
